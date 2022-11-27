@@ -1,7 +1,7 @@
 version: 2
 jobs:
   angular:
-    
+    resource_class: medium
     docker:
       - image: docker:18.06.3-ce-git
     steps:
@@ -12,9 +12,9 @@ jobs:
           no_output_timeout : 1h
           command: |
             docker run -e CI=true ezamliko/android:latest
-      ###################################
+      ###############################################################
   java:
-      
+      resource_class: medium
       docker:
         - image: docker:18.06.3-ce-git
       steps:
@@ -26,7 +26,7 @@ jobs:
             command: |
               docker run -e CI=true ezamliko/android:latest
   python:
-    
+    resource_class: medium
     docker:
       - image: docker:18.06.3-ce-git
     steps:
@@ -39,7 +39,7 @@ jobs:
             docker run -e CI=true ezamliko/android:latest
       
   vue:
-      
+      resource_class: medium
       docker:
         - image: docker:18.06.3-ce-git
       steps:
@@ -51,7 +51,69 @@ jobs:
             command: |
               docker run -e CI=true ezamliko/android:latest
   node:
-    
+    resource_class: medium
+    docker:
+      - image: docker:18.06.3-ce-git
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Build node
+          no_output_timeout : 1h
+          command: |
+            docker run -e CI=true ezamliko/android:latest
+  angular1:
+    resource_class: medium
+    docker:
+      - image: docker:18.06.3-ce-git
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Build angular
+          no_output_timeout : 1h
+          command: |
+            docker run -e CI=true ezamliko/android:latest
+      ###############################################################
+  java1:
+      resource_class: medium
+      docker:
+        - image: docker:18.06.3-ce-git
+      steps:
+        - checkout
+        - setup_remote_docker
+        - run:
+            name: Build java
+            no_output_timeout : 1h
+            command: |
+              docker run -e CI=true ezamliko/android:latest
+  python1:
+    resource_class: medium
+    docker:
+      - image: docker:18.06.3-ce-git
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Build python
+          no_output_timeout : 1h
+          command: |
+            docker run -e CI=true ezamliko/android:latest
+      
+  vue1:
+      resource_class: medium
+      docker:
+        - image: docker:18.06.3-ce-git
+      steps:
+        - checkout
+        - setup_remote_docker
+        - run:
+            name: Build vue
+            no_output_timeout : 1h
+            command: |
+              docker run -e CI=true ezamliko/android:latest
+  node1:
+    resource_class: medium
     docker:
       - image: docker:18.06.3-ce-git
     steps:
@@ -95,6 +157,36 @@ workflows:
                 - main
                 - master
       - node:
+          filters:
+            branches:
+              ignore:
+                - main
+                - master
+      - angular1:
+          filters:
+            branches:
+              ignore:
+                - main
+                - master
+      - java1:
+          filters:
+            branches:
+              ignore:
+                - main
+                - master
+      - python1:
+          filters:
+            branches:
+              ignore:
+                - main
+                - master
+      - vue1:
+          filters:
+            branches:
+              ignore:
+                - main
+                - master
+      - node1:
           filters:
             branches:
               ignore:
